@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const logic= require("../logic/logic.js")
-router.post('/bookName', logic.newBook)
+const bookController = require('../bookController/bookController.js')
 
-router.get('/listOfBooks', logic.listOfBooks)
+router.post('/createBook', bookController.createBook)
+router.get('/bookList', bookController.bookList )
+router.post('/getBooksInYear', bookController.getBooksYear)
+router.post('/getParticularBooks', bookController.getParticular)
+router.get('/getXINRBooks', bookController.getBooksPrice)
+router.get('/getRandomBooks', bookController.getRandom )
 
 module.exports = router;
