@@ -43,8 +43,34 @@ const findBook = async function(req,res){
     res.send({here : b})
 
 }
+
+const bookByAuthorID= async function(req,res){
+    let x = req.query.authorId
+    const getBooks = await book.find({author_id : x}).select({name : 1, _id : 0})
+
+    res.send({data : getBooks })
+}
+
+const authorNameAge = async function(req,res){
+    let array = [] 
+    let x= await book.find({ratings : {$gte : 4}})
+    for(let i=0;i<x.length;i++){
+        let y = x[i].author_id
+        let z = await author.findOne({author_id : y})
+       if(z.age>50){
+        let name = z.author_name
+        let Age = z.age
+        let object = {author_name : name ,age : Age}
+        array.push(object)
+       }  
+    }
+    res.send({here: array})
+}
+
 module.exports.createAuthor=createAuthor
 module.exports.createBook=createBook
 module.exports.listBooks=listBooks
 module.exports.authorName= authorName
 module.exports.findBook=findBook
+module.exports.bookByAuthorID=bookByAuthorID
+module.exports.authorNameAge=authorNameAge
