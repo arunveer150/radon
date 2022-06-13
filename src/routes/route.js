@@ -1,21 +1,14 @@
 const Router  = require('express');
 const express = require('express');
 const router = express.Router();
-const controller = require("../controller/controller.js")
-const Moment = require('moment')
+const userController = require("../controller/userController.js")
+const userMiddleware = require("../middleware/userMiddleware.js")
+const productController = require("../controller/productController.js")
+const orderMiddleware = require("../middleware/orderMiddleware.js")
+const orderController = require("../controller/orderController.js")
 
 
-
-router.get('/API1', function(req,res){
-    res.send("Hello it is first API ")
-})
-router.get('/API2', function(req,res,next){
-    res.send("Hello it is second API ")
-})
-router.get('/API3', function(req,res,next){
-    res.send("Hello it is third API ")
-})
-router.get('/API4', function(req,res,next){
-    res.send("Hello it is fourth API ")
-})
+router.post('/createUser',userMiddleware.userMid, userController.user)
+router.post('/createProduct', productController.productDetails)
+router.post('/createOrder', orderMiddleware.checkHeader,orderMiddleware.userCheck, orderController.createOrder)
 module.exports = router;
