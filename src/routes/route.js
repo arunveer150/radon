@@ -1,14 +1,14 @@
 const Router  = require('express');
 const express = require('express');
 const router = express.Router();
-const userController = require("../controller/userController.js")
-const userMiddleware = require("../middleware/userMiddleware.js")
-const productController = require("../controller/productController.js")
-const orderMiddleware = require("../middleware/orderMiddleware.js")
-const orderController = require("../controller/orderController.js")
+const userController= require("../controller/userController.js")
+const mid= require("../middleware/auth.js")
 
 
-router.post('/createUser',userMiddleware.userMid, userController.user)
-router.post('/createProduct', productController.productDetails)
-router.post('/createOrder', orderMiddleware.checkHeader,orderMiddleware.userCheck, orderController.createOrder)
+
+router.post('/createUser',userController.user)
+router.post('/login', userController.login)
+router.get('/users/:userId', mid.authMiddleware, userController.getUserDetails)
+router.put('/update/:userId',mid.authMiddleware, userController.updateDetails)
+router.delete('/deleted/:userId',mid.authMiddleware, userController.isDeleted)
 module.exports = router;

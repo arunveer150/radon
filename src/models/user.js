@@ -1,21 +1,20 @@
 const mongoose = require('mongoose')
 
 const userData = new mongoose.Schema({
-        name : String,
-        balance : {
-                type : Number,
-                default: 100
-        },
-        address : String,
+        firstName : String,
+        lastName : String,
+        mobile : String,
+        emailId : String,
+        password : String,
         age : Number,
         gender : {
                 type : String,
                 enum:["male", "female", "others"]
         },
-        isFreeAppUser :{type :  Boolean,
+        isDeleted :{type :  Boolean,
                 default: false
         }
 
-})
+},{timestamps:true})
 
 module.exports=mongoose.model('user', userData)
