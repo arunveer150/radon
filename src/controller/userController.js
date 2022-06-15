@@ -5,6 +5,7 @@ const jwt= require('jsonwebtoken')
 const userData = async function(req,res){
     let data = req.body 
     let createUser = await user.create(data)
+    //let get = await user.find()
     res.send({here : createUser})
 }
 
@@ -16,7 +17,7 @@ const login = async function(req,res){
         return res.send({status : false, msg : "check you login credential"})
     }
     let token = await jwt.sign({userId : login._id.toString(),
-    batch : "radon"},"function-up");
+    batch : "radon"},"function-up")
     res.setHeader("x-auth-token",token)
     res.send({status : true, msg : token})
 }

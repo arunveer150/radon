@@ -10,8 +10,16 @@ const authMiddleware = async function(req,res,next){
     if(!checkToken){
         return res.send({status : false, msg : "Invalid Token"})
     }
+    
+    let modifiedUserId = req.params.userId
+    let userIdToken = checkToken.userId
+    if(modifiedUserId!=userIdToken){
+        return res.send({status : false , msg : "not allowed to modified another account.........."})
+    }
     next()
 }
+
+
 
 module.exports.authMiddleware=authMiddleware
 
