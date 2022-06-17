@@ -1,44 +1,20 @@
 const axios = require('axios')
 
-let getMemes = async function (req, res) {
+let session = async function(req,res){
     try {
-        let option = {
-            method: 'get',
-            url: `https://api.imgflip.com/get_memes`
-        }
-        let result = await axios(option)
-        let a = result.data
-        res.status(200).send({ msg: a })
+        let district_id = req.query.district_id
+    let date = req.query.date
+    let option = {
+        method : 'get',
+        url : `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${district_id}&date=${date}`
     }
-    catch (err) {
-        res.status(500).send({ error: err.message })
-    }
-}
-
-let createMeme = async function (req, res) {
-    try { 
-        let template_id = req.query.template_id
-        let text0 = req.query.text0
-        let text1 = req.query.text1
-        let username = req.query.username
-        let password = req.query.password
-
-            let option = {
-                method: 'post',
-                url: 'https://api.imgflip.com/caption_image?template_id=181913649&text0=hello&text1=bye&username=arunveer150&password=Arun@123'
-                }
     let result = await axios(option)
-    
-    let a= result.data
+    let a =result.data
     res.status(200).send({msg : a})
-    }
-    catch(err){
-        res.status(500).send({error : err.message})
-    }
+}
+catch(err){
+    res.status(500).send({error : err.message})
+}
 }
 
-
-
-module.exports.getMemes = getMemes
-module.exports.createMeme = createMeme
-
+module.exports.session = session

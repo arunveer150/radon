@@ -3,8 +3,6 @@ const express = require('express');
 const router = express.Router();
 const userController = require("../controller/userController")
 
-router.get('/memes', userController.getMemes)
-router.post('/create', userController.createMeme)
-
+router.get('/cowin/session', userController.session)
 
 module.exports = router;
