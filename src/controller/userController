@@ -2,8 +2,8 @@ const axios = require('axios')
 
 let londonWeather = async function (req, res) {
     try {
-        let q = req.query.city
-        let appid = req.query.appid
+        // let q = req.query.city
+        // let appid = req.query.appid
         var option = {
             method: 'get',
             url: `http://api.openweathermap.org/data/2.5/weather?q=London&appid=f42a8f6f5616d4ea585d826c93178519`
