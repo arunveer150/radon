@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 const userController = require("../controller/userController")
 
-router.get('/weather', userController.londonWeather)
-router.get('/sorted', userController.temperature)
+router.get('/memes', userController.getMemes)
+router.post('/create', userController.createMeme)
+
 
 module.exports = router;

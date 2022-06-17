@@ -1,47 +1,44 @@
 const axios = require('axios')
 
-let londonWeather = async function (req, res) {
+let getMemes = async function (req, res) {
     try {
-        let q = req.query.city
-        let appid = req.query.appid
-        var option = {
+        let option = {
             method: 'get',
-            url: `http://api.openweathermap.org/data/2.5/weather?q=London&appid=f42a8f6f5616d4ea585d826c93178519`
+            url: `https://api.imgflip.com/get_memes`
         }
         let result = await axios(option)
         let a = result.data
-        let obj= {City : a.name, temperature : a.main.temp}
-        res.status(200).send({ msg: obj })
+        res.status(200).send({ msg: a })
     }
     catch (err) {
-        res.status(500).send({ abc: err.message })
+        res.status(500).send({ error: err.message })
     }
 }
 
-let temperature = async function(req,res){
-    try {
-        let array = ["Bengaluru","Mumbai", "Delhi", "Kolkata", "Chennai", "London", "Moscow"]
-    let arr=[]
-     for(let i=0;i<array.length;i++){
-        let option = {
-            method : 'get',
-            url:`http://api.openweathermap.org/data/2.5/weather?q=${array[i]}&appid=d1456baca9ed7afe9f54ac6257b19c5a`
-        }
-        let result= await axios(option)
-        let a=result.data
-        let obj={City : a.name, Temp: a.main.temp}
-        arr.push(obj)
+let createMeme = async function (req, res) {
+    try { 
+        let template_id = req.query.template_id
+        let text0 = req.query.text0
+        let text1 = req.query.text1
+        let username = req.query.username
+        let password = req.query.password
 
-     }
-     let final = arr.sort(function(a, b){return a.Temp - b.Temp})
-     res.status(200).send({msg : final})
+            let option = {
+                method: 'post',
+                url: 'https://api.imgflip.com/caption_image?template_id=181913649&text0=hello&text1=bye&username=arunveer150&password=Arun@123'
+                }
+    let result = await axios(option)
+    
+    let a= result.data
+    res.status(200).send({msg : a})
     }
     catch(err){
         res.status(500).send({error : err.message})
     }
-
 }
 
-module.exports.londonWeather = londonWeather
-module.exports.temperature=temperature
+
+
+module.exports.getMemes = getMemes
+module.exports.createMeme = createMeme
 
